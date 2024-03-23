@@ -1,18 +1,18 @@
 --ADICIONAR NOVO PAPEL
-SELECT * FROM brh.papel; /*8*/
+SELECT * FROM brh.papel; 
 
 INSERT INTO brh.papel (id,nome) VALUES (8,'Especialista de Negócios');
 
 --VERIFICANDO DEPARTAMENTO PARA DEFINIR O DO COLABORADOR
-SELECT * FROM brh.departamento; /*DEPTI*/
+SELECT * FROM brh.departamento; 
 
 --ADICIONANDO ENDEREÇO
-SELECT * FROM brh.endereco; /*12345-678*/
+SELECT * FROM brh.endereco; 
 
 INSERT INTO brh.endereco (cep,uf,cidade,bairro) VALUES ('12345-678','SP','Gothan','Arkhan');
 
 --ADICIONANDO COLABORADOR
-SELECT * FROM brh.colaborador; /*A000*/
+SELECT * FROM brh.colaborador; 
 
 INSERT INTO brh.colaborador (matricula,cpf,nome,salario,departamento,cep,logradouro,complemento_endereco) VALUES ('A000','123.456.789-00','Fulano','12345','DEPTI','12345-678','Bryantown','Casa 1');
 
@@ -35,7 +35,7 @@ INSERT INTO brh.dependente (cpf,nome,data_nascimento,parentesco,colaborador) VAL
 INSERT INTO brh.dependente (cpf,nome,data_nascimento,parentesco,colaborador) VALUES ('123.456.789-02','Cicrana de Tal',to_date('1981-01-01', 'yyyy-mm-dd'),'CÃ´njuge','A000');
 
 --CADASTRAR PROJETO 
-SELECT * FROM brh.projeto; /*5*/
+SELECT * FROM brh.projeto; 
 
 INSERT INTO brh.projeto (id, nome, responsavel, inicio, fim) VALUES (5,'BI','A000',to_date('2023-01-01','yyyy-mm-dd'),null);
 
@@ -68,9 +68,9 @@ SELECT colaborador AS "MATRÍCULA DO COLABORADOR", numero AS "NÚMERO DE TELEFON
 SELECT * FROM brh.colaborador WHERE departamento = 'SECAP';  /*H123, M123, R123, W123*/
 
 
-SELECT * FROM brh.telefone_colaborador WHERE colaborador = 'H123' OR colaborador = 'M123' OR colaborador = 'R123' OR colaborador = 'W123'; /*CONSULTANDO TELEFONES PARA APAGAR*/
+SELECT * FROM brh.telefone_colaborador WHERE colaborador = 'H123' OR colaborador = 'M123' OR colaborador = 'R123' OR colaborador = 'W123'; /*CONSULTANDO TEL PARA APAGAR*/
 
-DELETE FROM brh.telefone_colaborador WHERE colaborador = 'H123' OR colaborador = 'M123' OR colaborador = 'R123' OR colaborador = 'W123'; /*APAGANDO TELEFONES*/
+DELETE FROM brh.telefone_colaborador WHERE colaborador = 'H123' OR colaborador = 'M123' OR colaborador = 'R123' OR colaborador = 'W123'; /*APAGANDO TEL*/
 
 SELECT * FROM brh.email_colaborador WHERE colaborador = 'H123' OR colaborador = 'M123' OR colaborador = 'R123' OR colaborador = 'W123'; /*CONSULTANDO EMAILS PARA APAGAR*/
 
