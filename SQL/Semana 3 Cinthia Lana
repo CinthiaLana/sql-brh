@@ -1,0 +1,181 @@
+*****************************************
+ 01 Filtrar dependentes
+*****************************************
+
+SELECT colab.nome AS nome_colaborador, 
+       depend.nome AS nome_dependente, 
+       depend.data_nascimento                                   
+FROM brh.colaborador colab
+INNER JOIN brh.dependente depend ON colab.matricula = depend.colaborador
+WHERE (EXTRACT(MONTH FROM depend.data_nascimento) IN (4, 5, 6) OR depend.nome LIKE '%h%')
+ORDER BY colab.nome, depend.nome;
+
+*****************************************
+ 02 Listar colaborador com maior sal rio  
+*****************************************
+SELECT nome, salario from brh.colaborador
+ORDER BY salario desc;
+
+*****************************************
+ 03 Relat rio de senioridade 
+*****************************************
+
+SELECT matricula, 
+       nome, 
+       salario,
+       CASE 
+           WHEN salario <= 3000 THEN 'J nior'
+           WHEN salario <= 6000 THEN 'Pleno'
+           WHEN salario <= 20000 THEN 'S nior'
+           ELSE 'Corpo diretor'
+       END AS nivel_senioridade
+FROM brh.colaborador
+ORDER BY 
+    CASE 
+        WHEN salario >= 20000 THEN 1
+        WHEN salario >= 6000 THEN 2
+        WHEN salario >= 3000 THEN 3
+        ELSE 4
+    END,
+    nome;
+
+*****************************************
+04 Listar quantidade de colaboradores em projetos  
+*****************************************
+
+SELECT depart.nome AS nome_departamento,
+       proj.nome AS nome_projeto,
+       COUNT(atrib.colaborador) AS quantidade_colaboradores
+FROM brh.departamento depart
+JOIN brh.projeto proj ON proj.responsavel = depart.chefe
+LEFT JOIN brh.atribuicao atrib ON depart.sigla = atrib.colaborador
+GROUP BY depart.nome, proj.nome
+ORDER BY depart.nome, proj.nome;
+
+*****************************************
+05 Listar colaboradores com mais dependentes 
+*****************************************
+
+SELECT colab.nome AS nome_colaborador, 
+       COUNT(depend.cpf) AS quantidade_dependentes
+FROM brh.colaborador colab
+JOIN brh.dependente depend ON colab.matricula = depend.colaborador
+GROUP BY colab.nome
+HAVING COUNT(depend.cpf) >= 2
+ORDER BY quantidade_dependentes DESC, nome_colaborador ASC;
+
+
+*****************************************
+06 Relat rio anal tico de equipes
+*****************************************
+
+SELECT 
+    depart.nome AS nome_departamento,
+    chefe.nome AS nome_chefe_departamento,
+    colab.nome AS nome_colaborador,
+    proj.nome AS nome_projeto,
+    pap.nome AS papel_colaborador,
+    tel.numero AS numero_telefone,
+    depend.nome AS nome_dependente
+FROM 
+    brh.colaborador colab
+    JOIN brh.departamento depart ON colab.departamento = depart.sigla
+    JOIN brh.colaborador chefe ON depart.chefe = chefe.matricula
+    JOIN brh.atribuicao atr ON colab.matricula = atr.colaborador
+    JOIN brh.projeto proj ON atr.projeto = proj.id
+    JOIN brh.papel pap ON atr.papel = pap.id
+   RIGHT JOIN brh.telefone_colaborador tel ON colab.matricula = tel.colaborador
+    RIGHT JOIN brh.dependente depend ON colab.matricula = depend.colaborador
+ORDER BY 
+    proj.nome, colab.nome, depend.nome;
+
+
+*****************************************
+07 Listar faixa et ria dos dependentes
+*****************************************
+
+SELECT 
+    d.cpf AS CPF_Dependente,
+    d.nome AS Nome_Dependente,
+    TO_CHAR(d.data_nascimento, 'DD/MM/YYYY') AS Data_Nascimento,
+    d.parentesco AS Parentesco,
+    d.colaborador AS Matricula_Colaborador,
+    TRUNC((MONTHS_BETWEEN(SYSDATE, d.data_nascimento))/12) AS Idade,
+    CASE 
+        WHEN TRUNC((MONTHS_BETWEEN(SYSDATE, d.data_nascimento))/12) < 18 THEN 'Menor de idade'
+        ELSE 'Maior de idade'
+    END AS Faixa_Etaria
+FROM 
+    brh.dependente d
+ORDER BY 
+    d.colaborador, d.nome;
+
+*****************************************
+08 Paginar listagem de colaboradores 
+*****************************************
+
+SELECT nome
+FROM brh.colaborador
+ORDER BY nome
+OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;
+
+
+*****************************************
+ 09 Relat rio de plano de saude
+*****************************************
+
+SELECT 
+    col.nome AS Nome_Colaborador,
+    CASE 
+        WHEN cr.nome = 'J nior' THEN ROUND((col.salario * 0.01), 2)
+        WHEN cr.nome = 'Pleno' THEN ROUND((col.salario * 0.02), 2)
+        WHEN cr.nome = 'S nior' THEN ROUND((col.salario * 0.03), 2)
+        WHEN cr.nome = 'Corpo diretor' THEN ROUND((col.salario * 0.05), 2)
+    END AS Contribuicao_Senioridade,
+    COUNT(dep.cpf) AS Quantidade_Dependentes,
+    SUM(
+        CASE 
+            WHEN dep.parentesco = 'Conjuge' THEN 100
+            WHEN EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM dep.data_nascimento) >= 18 THEN 50
+            ELSE 25
+        END
+    ) AS Valor_Dependentes,
+    ROUND(
+        (
+            CASE 
+                WHEN cr.nome = 'J nior' THEN col.salario * 0.01
+                WHEN cr.nome = 'Pleno' THEN col.salario * 0.02
+                WHEN cr.nome = 'S nior' THEN col.salario * 0.03
+                WHEN cr.nome = 'Corpo diretor' THEN col.salario * 0.05
+            END
+            +
+            SUM(
+                CASE 
+                    WHEN dep.parentesco = 'Conjuge' THEN 100
+                    WHEN EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM dep.data_nascimento) >= 18 THEN 50
+                    ELSE 25
+                END
+            )
+        ), 2
+    ) AS Mensalidade_Total
+FROM 
+    brh.colaborador col
+JOIN 
+    brh.colaborador_role cr ON col.matricula = cr.colaborador
+LEFT JOIN 
+    brh.dependente dep ON col.matricula = dep.colaborador
+GROUP BY 
+    col.nome, cr.nome, col.salario
+ORDER BY 
+    col.nome;
+
+
+*****************************************
+10 Listar faixa etaria dos dependentes
+*****************************************
+
+SELECT colab.nome AS Nome_Colaborador
+FROM brh.colaborador colab
+JOIN brh.atribuicao atrib ON colab.matricula = atrib.colaborador
+GROUP BY colab.matricula, colab.nome
+HAVING COUNT(DISTINCT atrib.projeto) = (SELECT COUNT(*) FROM brh.projeto);
