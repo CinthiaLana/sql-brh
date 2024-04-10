@@ -1,1 +1,340 @@
+Exercicio 1 Variaveis
 
+// Declaração de variáveis
+ let nome = "João Silva";
+ let telefone = "(11) 99999-9999";
+ let possuiConvenioMedico = true; // ou false
+ let profissao = "Desenvolvedor";
+ let salario = 4500.00;
+
+ // Concatenação das variáveis em uma string
+ let profissional = `Nome: ${nome}, Telefone: ${telefone}, Convênio Médico: ${possuiConvenioMedico ? 'Sim' : 'Não'}, Profissão: ${profissao}, Salário: R$ ${salario}`;
+
+ // Apresentação da variável
+ console.log(profissional);
+ // Ou, se estiver em um ambiente de navegador:
+ document.write(profissional);
+
+*************************************************************************************
+
+Exercicio 2 Variaveis 
+
+// Declaração de variáveis
+let a = 5;
+let b = 10;
+
+// Troca de valores usando uma variável temporária
+let temp = a;
+a = b;
+b = temp;
+
+// Exibição dos valores trocados
+console.log('O novo valor de a:', a); // Deve mostrar 10
+console.log('O novo valor de b:', b); // Deve mostrar 5
+
+***********************************************************************************
+   Exercicio 3 Operações Aritmeticas
+let inteiro = 7;
+let decimal = 3.5;
+
+let adicao = inteiro + decimal;
+let subtracao = inteiro - decimal;
+let potenciacao = (adicao - .5) ** 2;
+let expressao1 = inteiro - 4 / 2 / 2;
+let expressao2 = (inteiro - 4) / 2;
+let expressao3 = 2 + subtracao * 2;
+let expressao4 = (2 + subtracao) * 2;
+let modulo1 = potenciacao % 2;
+let modulo2 = (inteiro - 1) % 2;
+
+console.log("Resultado da Adição:", adicao);
+console.log("Resultado da Subtração:", subtracao);
+console.log("Resultado da Potenciação:", potenciacao);
+console.log("Resultado da Expressão 1:", expressao1);
+console.log("Resultado da Expressão 2:", expressao2);
+console.log("Resultado da Expressão 3:", expressao3);
+console.log("Resultado da Expressão 4:", expressao4);
+console.log("Resultado do Módulo 1:", modulo1);
+console.log("Resultado do Módulo 2:", modulo2);
+
+
+*****************************************************************************************************
+Exercicio 4 Idadde para votar
+
+        // Solicita que o usuário digite sua idade
+        const idade = prompt("Digite sua idade:");
+
+        // Converte a entrada do usuário para um número inteiro
+        const idadeInt = parseInt(idade);
+
+        // Verifica se a idade está dentro dos limites para votação
+        if (idadeInt >= 16 && idadeInt <= 70) {
+            alert("Você pode votar!");
+        } else if (idadeInt > 70 || idadeInt < 16) {
+            alert("Você não pode votar.");
+        } else {
+            alert("Idade inválida. Por favor, digite um número válido.");
+        }
+
+****************************************************************************************************
+Exercicio 5 Bug no Software
+
+function calcularVolumePiscina(raio, altura) {
+    let volumeM3 = Math.PI * Math.pow(raio, 2) * altura;  // volume em metros cúbicos
+    let volumeL = volumeM3 * 1000;  // convertendo para litros
+    return volumeL;
+}
+
+let raio = 3.5;  // em metros
+let altura = 1.6;  // em metros
+
+let volume = calcularVolumePiscina(raio, altura);
+console.log('O volume da piscina é ' + volume + ' litros.');
+
+********************************************************************************************
+Exercicio 6 Estrutura de Repeticao 
+
+// a) Números de 1 a 50, indicando se são pares ou ímpares:
+for (let i = 1; i <= 50; i++) {
+    if (i % 2 == 0) {
+        console.log(i + " é par");
+    } else {
+        console.log(i + " é ímpar");
+    }
+}
+
+//Múltiplos de 3 entre 1 e 100:
+for (let i = 1; i <= 100; i++) {
+    if (i % 3 == 0) {
+        console.log(i);
+    }
+}
+
+//Sequência de 100 a 0, pulando de dois em dois:
+for (let i = 100; i >= 0; i -= 2) {
+    console.log(i);
+}
+
+//O jogo do PIM é um jogo em que o Sílvio Santos pedia para os participantes de seu programa contar de 1 até 40 da seguinte forma: "1, 2, 3, PIM, 5, 6, 7, PIM, 9, 10, 11, PIM, 13, 14, 15, PIM, 17, 18, 19, PIM, 21, 22, 23, PIM, 25, 26, 27, PIM, 29, 30, 31, PIM, 33, 34, 35, PIM, 37, 38, 39, PIM!"
+for (let i = 1; i <= 40; i++) {
+    if (i % 4 == 0) {
+        console.log("PIM");
+    } else {
+        console.log(i);
+    }
+}
+
+**************************************************************************************************************************
+Exercicio 7 listas
+
+//1. Crie uma lista chamada pessoa, coloque valores dentro dela como: nome (string), idade (inteiro), CPF (string), altura (decimal), se é maior de idade ou não (valor booleano true ou false).
+let pessoa = {
+    nome: "João",
+    idade: 30,
+    CPF: "123.456.789-00",
+    altura: 1.75,
+    maiorDeIdade: true
+};
+console.log(pessoa);
+
+//Crie um programa que recebe uma quantidade máxima de 10 de letras e ao final exibe todas elas no console.
+//Crie uma função chamada recebeLetra para pegar a letra e colocar na lista de letras.
+let letras = [];
+function recebeLetra(letra) {
+    if (letras.length < 10) {
+        letras.push(letra);
+    }
+}
+recebeLetra('a');
+recebeLetra('b');
+
+console.log(letras);
+
+//Considerando o exercício anterior, refaça ele criando uma lista que irá armazenar as letras e em seguida mostre no console:
+
+let letras = [];
+function recebeLetra(letra) {
+    if (letras.length < 10) {
+        letras.push(letra);
+    }
+}
+recebeLetra('a');
+recebeLetra('b');
+
+
+
+console.log("A primeira letra digitada: " + letras[0]);
+console.log("A quarta letra digitada: " + letras[3]);
+console.log("A quinta letra digitada: " + letras[4]);
+console.log("A última letra digitada: " + letras[letras.length - 1]);
+console.log("O tamanho da lista criada: " + letras.length);
+
+***************************************************************************************************
+Exercicio 8 Manipulando Valores
+
+// Dados das cidades
+let cidades = [
+    { nome: "Belo Horizonte", clientes: 23, faturamento: 2950 },
+    { nome: "São Paulo", clientes: 12, faturamento: 3950 },
+    { nome: "Salvador", clientes: 11, faturamento: 1329 },
+    { nome: "Campo Grande", clientes: 10, faturamento: 2412 },
+    { nome: "Curitiba", clientes: 8, faturamento: 626 }
+];
+
+// 1. Somando a quantidade de clientes
+let totalClientes = cidades.reduce((total, cidade) => total + cidade.clientes, 0);
+console.log(`Nas capitais de BH, SP, BA, MS e PR, Jéssica possui ${totalClientes} clientes.`);
+
+// 2. Calculando a média de faturamento por cliente de cada cidade
+console.log("Faturamento médio por cliente:");
+cidades.forEach(cidade => {
+    let media = Math.round(cidade.faturamento / cidade.clientes);
+    console.log(`${cidade.nome}: R$ ${media}`);
+});
+
+// 3. Calculando a média de faturamento por cliente nas cinco cidades
+let totalFaturamento = cidades.reduce((total, cidade) => total + cidade.faturamento, 0);
+let mediaGeral = Math.round(totalFaturamento / totalClientes);
+console.log(`Faturamento médio por cliente nas cinco cidades onde Jéssica mais tem clientes ativos é de R$ ${mediaGeral}`);
+
+// 4. Calculando o lucro por cidade
+console.log("Lucro por cidade:");
+cidades.forEach(cidade => {
+    let frete = cidade.nome == "São Paulo" ? 9 : 14;
+    let custoProducao = cidade.faturamento * 0.2;
+    let lucro = cidade.faturamento - custoProducao - frete * cidade.clientes;
+    console.log(`${cidade.nome}: R$ ${lucro.toFixed(2)}`);
+});
+
+****************************************************************************************************************
+Exercicio 9 Formulas Matematica
+
+// 1. Criando uma variável para cada figura geométrica
+let areaRetangulo = (base, altura) => base * altura;
+let areaCirculo = (raio) => Math.PI * Math.pow(raio, 2);
+let areaTriangulo = (base, altura) => (base * altura) / 2;
+
+// 2. Atribuindo valores para as bases, alturas e raio das figuras
+let baseRetangulo = 5;
+let alturaRetangulo = 10;
+let raioCirculo = 7;
+let baseTriangulo = 6;
+let alturaTriangulo = 8;
+
+// Calculando as áreas
+let areaCalculadaRetangulo = areaRetangulo(baseRetangulo, alturaRetangulo);
+let areaCalculadaCirculo = areaCirculo(raioCirculo);
+let areaCalculadaTriangulo = areaTriangulo(baseTriangulo, alturaTriangulo);
+
+// Exibindo os resultados
+console.log("A área do retângulo é: " + areaCalculadaRetangulo);
+console.log("A área do círculo é: " + areaCalculadaCirculo);
+console.log("A área do triângulo retângulo é: " + areaCalculadaTriangulo);
+
+*************************************************************************************************
+Exercicio 10 Sistema Bancario
+let chaveSeguranca = "9999";
+
+function desbloquearCartao(opcao, chave) {
+    if (opcao === "A") {
+        console.log("Será um prazer atendê-la em uma agência.");
+    } else if (opcao === "D") {
+        if (chave === chaveSeguranca) {
+            console.log("Chave correta. Por favor, redefina sua senha.");
+        } else {
+            console.log("Chave incorreta. Por favor, vá a uma agência para desbloquear seu cartão.");
+        }
+    } else {
+        console.log("Opção inválida. Por favor, digite 'A' para ir a uma agência ou 'D' para desbloquear com sua chave de segurança.");
+    }
+}
+
+// Testando a função
+desbloquearCartao("A");  // Thayná escolheu ir a uma agência
+desbloquearCartao("D", "1234");  // Thayná tentou desbloquear com uma chave incorreta
+desbloquearCartao("D", "9999");  // Thayná desbloqueou com a chave correta
+
+**************************************************************************************************************
+Exercicio 10 Software Escola
+
+// 1. Sistema para cálculo de médias
+let notas = [];
+let nota = prompt("Insira as notas de seus alunos. Quando acabar digite 'SAIR'");
+while (nota !== "SAIR") {
+    notas.push(parseFloat(nota));
+    nota = prompt("Insira as notas de seus alunos. Quando acabar digite 'SAIR'");
+}
+let soma = notas.reduce((total, nota) => total + nota, 0);
+let media = soma / notas.length;
+alert("A média da turma é: " + media);
+
+// 2. Sistema de notas dos alunos
+let alunos = [
+    { nome: "João", notaProva: 8, notaTrabalho: 7 },
+    {nome: "Claudia", notaProva: 5, notaTrabalho:10},
+    {nome: "Thais", notaProva: 10, notaTrabalho:8},
+
+];
+alunos.forEach(aluno => {
+    let mediaAluno = (aluno.notaProva + aluno.notaTrabalho) / 2;
+    if (mediaAluno < 7) {
+        console.log(`Aluno: ${aluno.nome}, Disciplina: Matemática, Média: ${mediaAluno}`);
+    }
+});
+
+// 3. Sistema para escolha do líder da turma
+let candidatos = [
+    { nome: "Maria", mediaPortugues: 9, mediaMatematica: 8 },
+    { nome: "Pedro", mediaPortugues: 9, mediaMatematica: 9 },
+    { nome: "Ana", mediaPortugues: 9, mediaMatematica: 7 },
+];
+candidatos.sort((a, b) => {
+    if (a.mediaPortugues === b.mediaPortugues) {
+        return b.mediaMatematica - a.mediaMatematica;
+    } else {
+        return b.mediaPortugues - a.mediaPortugues;
+    }
+});
+console.log("O líder da turma é: " + candidatos[0].nome);
+
+
+****************************************************************************************
+Exercicio 11 Agencia Viagens
+
+// 1. Programa para conversão de valores
+let cotacaoDolarNeozelandes = 3.25;
+let cotacaoBahtTailandes = 1 / 0.15;
+let cotacaoColonCostarriquenho = 1 / 0.0089;
+
+console.log("R$ 13996 em dólar neozelandês: " + (13996 / cotacaoDolarNeozelandes));
+console.log("NZD $ 79.15 em real: " + (79.15 * cotacaoDolarNeozelandes));
+console.log("NZD $ 200 em real: " + (200 * cotacaoDolarNeozelandes));
+
+console.log("R$ 9160 em baht tailandês: " + (9160 / cotacaoBahtTailandes));
+console.log("THB 590 em real: " + (590 * cotacaoBahtTailandes));
+console.log("THB 235 em real: " + (235 * cotacaoBahtTailandes));
+
+console.log("R$ 5119 em colón costarriquenho: " + (5119 / cotacaoColonCostarriquenho));
+console.log("CRC 2300 em real: " + (2300 * cotacaoColonCostarriquenho));
+console.log("CRC 3150 em real: " + (3150 * cotacaoColonCostarriquenho));
+
+// 2. Sistema de envio automático de e-mails
+let nomeCliente = "Fulana";
+let destino = "Nova Zelândia";
+let valorPassagens = 13996;
+let diariaHotel = 79.15 * cotacaoDolarNeozelandes;
+let valorGuiaLocal = 200 * cotacaoDolarNeozelandes;
+let custoFixoViagem = diariaHotel * 5;
+
+console.log(`Olá, ${nomeCliente}! É um prazer termos você como cliente e estamos ansiosos para que sua viagem possa ocorrer em breve!
+Estou te encaminhando os orçamentos!
+  * ${destino} *
+Passagens: R$ ${valorPassagens.toFixed(2)}
+Acomodação (5 dias) de R$ ${diariaHotel.toFixed(2)}
+O guia local custará R$ ${valorGuiaLocal.toFixed(2)}
+Total R$ ${(valorPassagens + custoFixoViagem + valorGuiaLocal).toFixed(2)}
+\---`);
+
+// 3. Melhorias no sistema
+let destinos = [];
+for (let i = 0; i < 3; i++) {
